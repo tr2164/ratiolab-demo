@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-gray-900 bg-gray-50;
+  }
+}
+
+@layer components {
+  .coaching-panel {
+    @apply bg-brand-50 border border-brand-200 rounded-xl p-5;
+  }
+
+  .data-card {
+    @apply bg-white border border-gray-200 rounded-xl shadow-sm;
+  }
+
+  .xbrl-tag {
+    @apply inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-mono
+           bg-amber-50 text-amber-700 border border-amber-200 rounded
+           cursor-pointer hover:bg-amber-100 transition-colors;
+  }
+
+  .chat-prose {
+    @apply text-xs text-gray-700 leading-relaxed;
+  }
+  .chat-prose h1,
+  .chat-prose h2,
+  .chat-prose h3 {
+    @apply text-xs font-semibold text-gray-800 mt-3 mb-1.5;
+  }
+  .chat-prose h2 {
+    @apply text-[13px] border-b border-gray-100 pb-1;
+  }
+  .chat-prose p {
+    @apply mb-2 last:mb-0;
+  }
+  .chat-prose strong {
+    @apply font-semibold text-gray-900;
+  }
+  .chat-prose em {
+    @apply italic text-gray-600;
+  }
+  .chat-prose ul,
+  .chat-prose ol {
+    @apply pl-4 mb-2 space-y-1;
+  }
+  .chat-prose ul {
+    @apply list-disc;
+  }
+  .chat-prose ol {
+    @apply list-decimal;
+  }
+  .chat-prose li {
+    @apply text-xs text-gray-700;
+  }
+  .chat-prose code {
+    @apply font-mono text-[10px] bg-gray-100 text-gray-800 px-1 py-0.5 rounded;
+  }
+  .chat-prose blockquote {
+    @apply border-l-2 border-brand-300 pl-3 text-gray-600 italic my-2;
+  }
+  .chat-prose a {
+    @apply text-brand-600 underline;
+  }
+  .chat-prose hr {
+    @apply border-gray-100 my-3;
+  }
+}

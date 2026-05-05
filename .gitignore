@@ -1,0 +1,41 @@
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Node / Next.js
+node_modules/
+frontend/.next/
+frontend/out/
+
+# Docker
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# LTI keys (never commit)
+backend/keys/
+keys/
+
+# PDF / media (keep repo lean)
+*.pdf
+
+# Transcripts directory — runtime data, not source code
+transcripts/
+
+# Corporate VPN certificates — machine-specific, never commit
+backend/certs/*.pem

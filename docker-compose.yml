@@ -1,0 +1,55 @@
+name: finsight-nyu
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: finsight
+      POSTGRES_PASSWORD: finsight
+      POSTGRES_DB: finsight
+    ports:
+      - "127.0.0.1:5435:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finsight"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/company_tickers.json:/app/company_tickers.json:ro
+      - edgar_cache:/app/edgar_cache
+    ports:
+      - "127.0.0.1:8005:8001"
+    env_file:
+      - path: .env.local
+        required: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql+asyncpg://finsight:finsight@db:5432/finsight
+      - SYNC_DATABASE_URL=postgresql://finsight:finsight@db:5432/finsight
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/src:/app/src
+    ports:
+      - "127.0.0.1:3003:3001"
+    environment:
+      - API_URL=http://backend:8001
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  edgar_cache:
